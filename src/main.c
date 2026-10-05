@@ -136,7 +136,7 @@ int main(int argc, char **argv)
 
     if (argc < 2)
     {
-        puts("Error: invalid usage, correct is:\n./web_downloader PARAMETERS");
+        puts("Error: invalid usage, correct is:\n./bin/batchfetch PARAMETERS");
         return 1;
     }
 

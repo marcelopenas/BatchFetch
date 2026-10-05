@@ -68,7 +68,7 @@ Clone the repository and enter its directory:
 
 ```bash
 git clone <repository-url>
-cd cdownloader
+cd BatchFetch
 ```
 
 Build the program with:
@@ -80,7 +80,7 @@ make
 The executable will be created as:
 
 ```text
-./batchfetch
+./bin/batchfetch
 ```
 
 To remove the compiled executable:
@@ -105,13 +105,13 @@ The build uses:
 ### Download one URL
 
 ```bash
-./batchfetch URL
+./bin/batchfetch URL
 ```
 
 Example:
 
 ```bash
-./batchfetch https://example.com/files/report.pdf
+./bin/batchfetch https://example.com/files/report.pdf
 ```
 
 The output filename is generated automatically. For example:
@@ -139,7 +139,7 @@ https://example.com/files/one.pdf
 Then run:
 
 ```bash
-./batchfetch -f urls.txt
+./bin/batchfetch -f urls.txt
 ```
 
 BatchFetch processes the file in parallel batches. Empty lines are ignored, and
@@ -150,7 +150,7 @@ duplicate URLs are downloaded only once.
 Use `-N` to set the number of URLs downloaded concurrently in each batch:
 
 ```bash
-./batchfetch -f urls.txt -N 8
+./bin/batchfetch -f urls.txt -N 8
 ```
 
 The default is **4** parallel processes per batch. Values above **64** are
@@ -183,16 +183,16 @@ Batch 5: URLs 17-20  (4 parallel downloads)
 
 ```bash
 # Single download
-./batchfetch https://example.com/image.jpg
+./bin/batchfetch https://example.com/image.jpg
 
 # Download multiple URLs in parallel batches of four
-./batchfetch -f examples/list.txt
+./bin/batchfetch -f examples/list.txt
 
 # Download using eight processes
-./batchfetch -f examples/list.txt 8
+./bin/batchfetch -f examples/list.txt -N 8
 
 # Options may appear in either order
-./batchfetch -N 2 -f examples/list.txt
+./bin/batchfetch -N 2 -f examples/list.txt
 ```
 
 > [!WARNING]
@@ -215,18 +215,22 @@ Are you sure you want to exit? (y/n):
 
 ```text
 .
-├── arguments.c           # Command-line argument parsing
-├── arguments.h
-├── config.h              # Shared configuration constants
-├── downloader.c          # libcurl download implementation
-├── downloader.h
-├── main.c                # Application orchestration
-├── signals.c             # SIGINT and child-process management
-├── signals.h
-├── url_list.c            # URL file loading and deduplication
-├── url_list.h
-├── url_utils.c           # URL-to-filename conversion
-├── url_utils.h
+├── src/
+│   ├── arguments.c       # Command-line argument parsing
+│   ├── downloader.c      # libcurl download implementation
+│   ├── main.c            # Application orchestration
+│   ├── signals.c         # SIGINT and child-process management
+│   ├── url_list.c        # URL file loading and deduplication
+│   └── url_utils.c       # URL-to-filename conversion
+├── include/
+│   ├── arguments.h
+│   ├── config.h           # Shared configuration constants
+│   ├── downloader.h
+│   ├── signals.h
+│   ├── url_list.h
+│   └── url_utils.h
+├── build/                # Generated object and dependency files
+├── bin/                  # Generated executable
 ├── examples/list.txt     # Example URL list
 ├── Makefile
 └── README.md
@@ -262,11 +266,11 @@ Useful checks:
 
 ```bash
 # Check the executable exists
-test -x ./batchfetch
+test -x ./bin/batchfetch
 
 # Check invalid usage
-./batchfetch
+./bin/batchfetch
 
 # Check invalid process-count validation
-./batchfetch -f examples/liN invalid
+./bin/batchfetch -f examples/list.txt -N invalid
 ```
