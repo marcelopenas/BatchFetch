@@ -1,4 +1,4 @@
-# BatchFetch
+# BatchFetch <img src="assets/vid/demo.gif" align="right" width="150" alt="BatchFetch demo">
 
 > **BatchFetch** is a parallel, batched command-line downloader for fetching
 > multiple URLs efficiently.
